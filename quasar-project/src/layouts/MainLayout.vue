@@ -10,33 +10,75 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
+      <div class="q-px-lg q-pt-xl q-mb-md">
+        <div class="text-h3">Todoshechka</div>
+        <div class="text-subtitle">{{ toDaysDate }}</div>
+      </div>
+      <q-img
+        class="header-image absolute-top"
+        src="../assets/road.png"></q-img>
     </q-header>
 
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
-      bordered
+      :width="200"
+      :breakpoint="400"
     >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+      <q-scroll-area style="height: calc(100% - 185px); margin-top: 185px; border-right: 1px solid #ddd">
+        <q-list padding>
+          <q-item clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="inbox" />
+            </q-item-section>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+            <q-item-section>
+              Inbox
+            </q-item-section>
+          </q-item>
+
+          <q-item active clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="star" />
+            </q-item-section>
+
+            <q-item-section>
+              Star
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="send" />
+            </q-item-section>
+
+            <q-item-section>
+              Send
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="drafts" />
+            </q-item-section>
+
+            <q-item-section>
+              Drafts
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
+
+      <q-img class="absolute-top" src="../assets/1639658677_250-catherineasquithgallery-com-p-neonovii-fon-rozovii-388.jpg" style="height: 185px">
+        <div class="absolute-bottom bg-transparent">
+          <q-avatar size="70px" class="q-mb-sm">
+            <img src="../assets/b05cde54c08bf6f456a17e696e048578.jpg">
+          </q-avatar>
+          <div class="text-weight-bold">Ryan Gosling</div>
+          <div>@Ryan_228_1337@mail.ru</div>
+        </div>
+      </q-img>
     </q-drawer>
 
     <q-page-container>
@@ -48,6 +90,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { date } from 'quasar'
 
 const linksList = [
   {
@@ -111,6 +154,20 @@ export default defineComponent({
         leftDrawerOpen.value = !leftDrawerOpen.value
       }
     }
+  },
+  computed: {
+    toDaysDate(){
+      const timeStamp = Date.now()
+      return date.formatDate(timeStamp, 'dddd D MMMM HH:mm')
+    }
   }
 })
 </script>
+
+<style lang="scss">
+.header-image{
+  height: 100%;
+  z-index: -1;
+  opacity: 0.7;
+}
+</style>
