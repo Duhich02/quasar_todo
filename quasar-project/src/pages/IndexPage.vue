@@ -1,24 +1,24 @@
 <template>
-  <q-page class="flex flex-center bg-black-3 column">
-    <q-list>
+  <q-page class="bg-black-3 column">
+    <img
+      alt="logo"
+      src="../assets/welcome.gif "
+      style="width: 404px; height: 110px; align-self: center">
+    <q-list
+      separator
+      bordered>
       <q-item
         tag="label"
         v-ripple
-        v-for="task in tasks" :key="task.title"
-      >
+        v-for="task in tasks" :key="task.title">
         <q-item-section avatar>
-          <q-checkbox v-model="color" val="teal" color="teal" />
+          <q-checkbox v-model="task.done" val="teal" color="teal" />
         </q-item-section>
         <q-item-section>
           <q-item-label>{{ task.title }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
-    <img
-      alt="logo"
-      src="../assets/welcome.gif "
-      style="width: 404px; height: 110px"
-    >
   </q-page>
 </template>
 
