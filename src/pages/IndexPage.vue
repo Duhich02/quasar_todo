@@ -4,6 +4,17 @@
       alt="logo"
       src="../assets/welcome.gif "
       style="width: 404px; height: 110px; align-self: center">
+    <div class="row q-pa-sm bg-black">
+
+      <q-input standout v-model="newTask" dense placeholder="new task" @keyup.enter="addTask">
+        <template v-slot:append>
+          <q-avatar @click="addTask">
+            <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg">
+          </q-avatar>
+        </template>
+      </q-input>
+
+    </div>
     <q-list
       separator
       bordered>
@@ -34,13 +45,14 @@
 export default {
   data(){
     return{
+      newTask: "",
       tasks: [
         {
-          title: 'chores',
+          title: 'to pet cat',
           done: false
         },
         {
-          title: 'home task',
+          title: 'to pet dog',
           done: false
         }
       ]
@@ -48,7 +60,27 @@ export default {
   },
   methods: {
     deleteTask(index){
-      this.tasks.splice(index, 1)
+
+      this.$q.dialog({
+        dark: true,
+        title: 'Confirm',
+        message: 'Really?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        this.tasks.splice(index, 1)
+        this.$q.notify({
+          type: 'positive',
+          message: 'Deleted.'
+      });
+    })
+  },
+    addTask(){
+      this.tasks.push({
+        title: this.newTask,
+        done: false,
+      });
+      this.newTask=""
     }
   }
 }
